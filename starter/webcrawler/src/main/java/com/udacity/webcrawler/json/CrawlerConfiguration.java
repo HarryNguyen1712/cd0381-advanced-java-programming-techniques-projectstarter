@@ -3,6 +3,7 @@ package com.udacity.webcrawler.json;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
@@ -330,9 +331,9 @@ public final class CrawlerConfiguration {
       }
 
       return new CrawlerConfiguration(
-          startPages.stream().toList(),
-          ignoredUrls.stream().map(Pattern::compile).toList(),
-          ignoredWords.stream().map(Pattern::compile).toList(),
+          new ArrayList<>(startPages),
+          ignoredUrls.stream().map(Pattern::compile).collect(Collectors.toList()),
+          ignoredWords.stream().map(Pattern::compile).collect(Collectors.toList()),
           parallelism,
           implementationOverride,
           maxDepth,
